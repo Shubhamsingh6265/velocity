@@ -191,7 +191,7 @@ export default function TitleOverlay({
               </text>
             </svg>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-[44ch]">
-              Authoritative 30Hz WebSocket netcode, optical ADS scopes, kill-medicate siphons, and up to 18-player local friends lobbies.
+              Fast-paced local arena FPS. Jump in and deploy.
             </p>
           </div>
 

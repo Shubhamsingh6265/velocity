@@ -176,11 +176,11 @@ test('Weapon ADS/scope configuration and player profile helpers work cleanly', (
   assert.match(code, /^[A-Z2-9]{5}$/);
   assert.equal(
     buildInviteUrl('ab#12'),
-    'https://project-velocity.ai.studio/?r=AB12',
+    'https://combat-velocity.vercel.app/?r=AB12',
   );
   assert.equal(
     buildInviteUrl(code),
-    `https://project-velocity.ai.studio/?r=${code}`,
+    `https://combat-velocity.vercel.app/?r=${code}`,
   );
 });
 

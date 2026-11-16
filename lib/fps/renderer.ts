@@ -780,16 +780,20 @@ const ws = new WebSocket(wsUrl);
     };
 
     ws.onclose = () => {
-      // Ignore sockets we closed ourselves (disconnect() clears this.ws first).
-      if (this.ws !== ws || this.disposed) return;
-      const wasInMatch = Boolean(this.selfId);
-      this.disconnect();
-      this.onServerError?.(
-        wasInMatch
-          ? 'Connection lost. The server stopped responding — check your network and deploy again.'
-          : 'Could not reach the game server. Please try again.',
-      );
-    };
+  // Ignore sockets we closed ourselves (disconnect() clears this.ws first).
+  if (this.ws !== ws || this.disposed) return;
+  const wasInMatch = Boolean(this.selfId);
+  this.disconnect();
+  const configured = process.env.NEXT_PUBLIC_WS_URL;
+  const hint = configured
+    ? ` (connecting to: ${configured})`
+    : ' — set NEXT_PUBLIC_WS_URL to your game server address';
+  this.onServerError?.(
+    wasInMatch
+      ? 'Connection lost. The server stopped responding — check your network and deploy again.'
+      : `Could not reach the game server${hint}. Please try again.`,
+  );
+};
 
     ws.onmessage = (ev) => {
       if (this.ws !== ws) return;

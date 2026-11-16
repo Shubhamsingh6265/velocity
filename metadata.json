@@ -1,0 +1,6 @@
+{
+  "name": "Project Velocity",
+  "description": "Cross-platform low-spec multiplayer arena FPS with authoritative WebSocket netcode, slide-hop momentum physics, and adaptive WebGL rendering.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

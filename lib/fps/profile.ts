@@ -81,7 +81,10 @@ export function sanitizeClanTag(raw: string): string {
   return raw.replace(/[^a-zA-Z0-9]/g, '').toUpperCase().slice(0, 4);
 }
 
-export const INVITE_BASE_URL = 'https://project-velocity.ai.studio';
+export const INVITE_BASE_URL =
+  typeof window !== 'undefined'
+    ? `${window.location.protocol}//${window.location.host}`
+    : (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://combat-velocity.vercel.app');
 
 export function buildInviteUrl(code: string): string {
   const clean = code.replace(/[^a-zA-Z0-9-]/g, '').toUpperCase().slice(0, 10);

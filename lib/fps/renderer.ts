@@ -728,14 +728,18 @@ export class VelocityClientEngine {
     const accentHex = parseHexColor(this.localState.accentColor);
     this.viewmodels.forEach((vm) => vm.setSleeveAccent(accentHex));
 
-    const configuredUrl = process.env.NEXT_PUBLIC_WS_URL;
-    let wsUrl: string;
-    if (configuredUrl) {
-      wsUrl = configuredUrl;
-    } else {
-      const proto = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-      wsUrl = `${proto}//${window.location.host}/ws`;
-    }
+    // On serverless hosts (e.g. Vercel) there is no persistent process to accept
+// the /ws upgrade, so the game server must be deployed separately (Railway,
+// Render, Fly.io, a VPS, etc.) and its URL supplied via NEXT_PUBLIC_WS_URL.
+// Falls back to same-origin /ws for deployments that run server.ts directly.
+const configuredUrl = process.env.NEXT_PUBLIC_WS_URL;
+let wsUrl: string;
+if (configuredUrl) {
+  wsUrl = configuredUrl;
+} else {
+  const proto = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+  wsUrl = `${proto}//${window.location.host}/ws`;
+}
 const ws = new WebSocket(wsUrl);
     this.ws = ws;
     this.ammoBank = {};
